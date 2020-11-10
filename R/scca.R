@@ -33,13 +33,15 @@ function(X, Y, penalty="HL", lamx=c(1,2,3),lamy=c(1,2,3), nc=1, tuning="CV.alt",
         if (penalty!="SOFT") {sscca.rst<-NIPALS.sparse(X.new,Y.new,olamx, olamy, penalty=penalty)}
         if (penalty=="SOFT") {sscca.rst<-NIPALS.soft(X.new,Y.new,olamx, olamy)}
 
+        iter_num = sscca.rst$niter
+
         X.new<-X.new- sscca.rst$u1 %*%t(sscca.rst$a1)
         Y.new<-Y.new- sscca.rst$v1 %*%t(sscca.rst$b1)
 
         ytx.new<-t(Y.new)%*%X.new
         L[cnt,1]<-olamx; L[cnt,2]<-olamy
 
-        cat("Computing Component number ",cnt,"\n")
+        cat("Computing Component number ",cnt, "niter", iter_num, "\n")
 
         U[,cnt]<-sscca.rst$u1; V[,cnt]<-sscca.rst$v1
         A[,cnt]<-sscca.rst$a1; B[,cnt]<-sscca.rst$b1

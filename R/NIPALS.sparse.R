@@ -72,9 +72,7 @@ function(X,Y,lamx,lamy, penalty){
     v1<-Y%*%b1
     eps.cov<-max(abs(v1-v1.old))
     niter<-niter+1
-    if ((sum(round(a1,digit=4)==0)>=(p-2))&(sum(round(b1,digit=4)==0)>=(q-2))) {
-        print(niter)
-        break}
+    if ((sum(round(a1,digit=4)==0)>=(p-2))&(sum(round(b1,digit=4)==0)>=(q-2))) {break}
     }
         
     a1<-a1/sqrt(sum(a1^2))
@@ -84,6 +82,5 @@ function(X,Y,lamx,lamy, penalty){
     rho1<-crossprod(u1, v1)
     if (niter>=100) {print("No Convergence")}
     return(list(rho1=rho1,u1=u1,v1=v1,a1=round(a1,digit=4),b1=round(b1,digit=4),WWx=WWx,WWy=WWy,niter=niter))   
-    
 }
 
