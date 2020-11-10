@@ -30,27 +30,20 @@ function(X, Y, penalty="HL", lamx=c(1,2,3),lamy=c(1,2,3), nc=1, tuning="CV.alt",
         
         if (is.numeric(tuning)) {olamx<-tuning[cnt,1];olamy<-tuning[cnt,2]}
         
-        
         if (penalty!="SOFT") {sscca.rst<-NIPALS.sparse(X.new,Y.new,olamx, olamy, penalty=penalty)}
         if (penalty=="SOFT") {sscca.rst<-NIPALS.soft(X.new,Y.new,olamx, olamy)}
 
-              
-X.new<-X.new- sscca.rst$u1 %*%t(sscca.rst$a1)
+        X.new<-X.new- sscca.rst$u1 %*%t(sscca.rst$a1)
         Y.new<-Y.new- sscca.rst$v1 %*%t(sscca.rst$b1)
-        
 
         ytx.new<-t(Y.new)%*%X.new
         L[cnt,1]<-olamx; L[cnt,2]<-olamy
 
-        cat("Computng Component number ",cnt,"\n")
-    
+        cat("Computing Component number ",cnt,"\n")
+
         U[,cnt]<-sscca.rst$u1; V[,cnt]<-sscca.rst$v1
         A[,cnt]<-sscca.rst$a1; B[,cnt]<-sscca.rst$b1
-CR[cnt]<-CR1
-
+        CR[cnt]<-CR1
     }
-
-    
 return(list(U=U, V=V, A=A, B=B, lambda=L,CR=CR))
 }
-

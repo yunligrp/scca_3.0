@@ -72,7 +72,9 @@ function(X,Y,lamx,lamy, penalty){
     v1<-Y%*%b1
     eps.cov<-max(abs(v1-v1.old))
     niter<-niter+1
-    if ((sum(round(a1,digit=4)==0)>=(p-2))&(sum(round(b1,digit=4)==0)>=(q-2))) {break}
+    if ((sum(round(a1,digit=4)==0)>=(p-2))&(sum(round(b1,digit=4)==0)>=(q-2))) {
+        print(niter)
+        break}
     }
         
     a1<-a1/sqrt(sum(a1^2))
